@@ -3,13 +3,14 @@
 namespace Spatie\BladeX;
 
 use Closure;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Str;
+use Illuminate\Support\Contracts\ArrayableInterface;
+use Spatie\BladeX\Laravel\Collection;
+use Spatie\BladeX\Laravel\Str;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
 
-abstract class ViewModel implements Arrayable
+abstract class ViewModel implements ArrayableInterface
 {
     protected $ignore = [];
 
@@ -17,7 +18,7 @@ abstract class ViewModel implements Arrayable
     {
         $class = new ReflectionClass($this);
 
-        $publicProperties = collect($class->getProperties(ReflectionProperty::IS_PUBLIC))
+        $publicProperties = Collection::make($class->getProperties(ReflectionProperty::IS_PUBLIC))
             ->reject(function (ReflectionProperty $property) {
                 return $this->shouldIgnore($property->getName());
             })
@@ -25,7 +26,7 @@ abstract class ViewModel implements Arrayable
                 return [$property->getName() => $this->{$property->getName()}];
             });
 
-        $publicMethods = collect($class->getMethods(ReflectionMethod::IS_PUBLIC))
+        $publicMethods = Collection::make($class->getMethods(ReflectionMethod::IS_PUBLIC))
             ->reject(function (ReflectionMethod $method) {
                 return $this->shouldIgnore($method->getName());
             })

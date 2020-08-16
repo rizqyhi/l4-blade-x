@@ -16,7 +16,7 @@ BladeX support slots too. This layout component
             {{ $sidebar }}
         </div>
         <div class="w-2/3">
-            {!! $slot !!}
+            {{ $slot }}
         </div>
     </div>
     <footer>

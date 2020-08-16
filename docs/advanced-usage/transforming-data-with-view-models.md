@@ -14,7 +14,7 @@ BladeX::component('select-field')->viewModel(SelectFieldViewModel::class);
 Before reviewing the contents of the component and the view model itself, let's take a look at the `select-field` component in use.
 
 ```blade
-@php
+<?php
 // In a real app this data would probably come from a controller
 // or a view composer.
 $countries = [
@@ -22,7 +22,7 @@ $countries = [
     'fr' => 'France',
     'nl' => 'The Netherlands',
 ];
-@endphp
+?>
 
 <select-field name="countries" :options="$countries" selected="fr" />
 ```
@@ -64,7 +64,7 @@ All public properties and methods on the view model will be passed to the Blade 
 ```blade
 <select name="{{ $name }}">
     @foreach($options as $value => $label)
-        <option {!! $isSelected($value) ? 'selected="selected"' : '' !!} value="{{ $value }}">{{ $label }}</option>
+        <option {{ $isSelected($value) ? 'selected="selected"' : '' }} value="{{ $value }}">{{ $label }}</option>
     @endforeach
 </select>
 ```

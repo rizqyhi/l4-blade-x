@@ -16,11 +16,43 @@ class BladeXServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'bladex');
+        $this->registerViewFactory();
+        $this->registerBladeCompiler();
+        $this->registerBladeXCompiler();
+    }
 
-        $this->app['blade.compiler']->extend(function ($view) {
+    private function registerViewFactory()
+    {
+        $this->app->bindShared('view', function($app) {
+			$factory = new CustomFactory(
+                $app['view.engine.resolver'],
+                $app['view.finder'],
+                $app['events']
+            );
+
+			$factory->setContainer($app);
+			$factory->share('app', $app);
+
+			return $factory;
+        });
+    }
+
+    private function registerBladeCompiler()
+    {
+        $this->app->bindShared('blade.compiler', function($app) {
+			$cache = $app['path.storage'].'/views';
+
+			return new CustomBladeCompiler($app['files'], $cache);
+        });
+    }
+
+    private function registerBladeXCompiler()
+    {
+        $this->app['blade.compiler']->extend(function ($view, $compiler) {
             return $this->app[Compiler::class]->compile($view);
         });
+
+        $this->app['view']->addNamespace('bladex', __DIR__.'/../resources/views');
 
         $this->app->make(BladeX::class)->component('bladex::context', 'context');
     }

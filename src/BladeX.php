@@ -3,9 +3,11 @@
 namespace Spatie\BladeX;
 
 use Illuminate\Support\Str;
+use Illuminate\View\Factory;
 use Spatie\BladeX\ComponentDirectory\NamespacedDirectory;
 use Spatie\BladeX\ComponentDirectory\RegularDirectory;
 use Spatie\BladeX\Exceptions\CouldNotRegisterComponent;
+use Spatie\BladeX\Laravel\Collection;
 use Symfony\Component\Finder\SplFileInfo;
 
 class BladeX
@@ -15,6 +17,13 @@ class BladeX
 
     /** @var string */
     protected $prefix = '';
+
+    protected $view;
+
+    public function __construct(Factory $viewFactory)
+    {
+        $this->view = $viewFactory;
+    }
 
     /**
      * @param string|string[] $view
@@ -46,7 +55,7 @@ class BladeX
             return null;
         }
 
-        if (! view()->exists($view)) {
+        if (! $this->view->exists($view)) {
             throw CouldNotRegisterComponent::viewNotFound($view, $tag);
         }
 
@@ -86,7 +95,7 @@ class BladeX
      */
     public function registeredComponents(): array
     {
-        return collect($this->registeredComponents)->reverse()->unique(function (Component $component) {
+        return Collection::make($this->registeredComponents)->reverse()->unique(function (Component $component) {
             return $component->getTag();
         })->reverse()->values()->all();
     }
@@ -129,6 +138,7 @@ class BladeX
                     return Str::endsWith($file->getFilename(), '.blade.php');
                 })
                 ->map(function (SplFileInfo $file) use ($componentDirectory) {
+                    // print_r($componentDirectory->getViewName($file).PHP_EOL);
                     return $componentDirectory->getViewName($file);
                 })
         );

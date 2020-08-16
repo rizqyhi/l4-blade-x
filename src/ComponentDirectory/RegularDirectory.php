@@ -3,8 +3,9 @@
 namespace Spatie\BladeX\ComponentDirectory;
 
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
 use Spatie\BladeX\Exceptions\CouldNotRegisterComponent;
+use Spatie\BladeX\Laravel\Collection;
+use Spatie\BladeX\Laravel\Str;
 
 class RegularDirectory extends ComponentDirectory
 {
@@ -18,7 +19,7 @@ class RegularDirectory extends ComponentDirectory
     {
         $viewPath = str_replace('.', '/', $this->viewDirectory);
 
-        $absoluteDirectory = collect(View::getFinder()->getPaths())
+        $absoluteDirectory = Collection::make(View::getFinder()->getPaths())
             ->map(function (string $path) use ($viewPath) {
                 return realpath($path.'/'.$viewPath);
             })

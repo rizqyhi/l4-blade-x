@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\View;
 use Spatie\BladeX\Component;
 use Spatie\BladeX\Exceptions\CouldNotRegisterComponent;
 use Spatie\BladeX\Facades\BladeX;
+use Spatie\BladeX\Laravel\Collection;
 use Spatie\BladeX\Tests\Features\Registration\TestClasses\SelectViewModel;
 use Spatie\BladeX\Tests\TestCase;
 use stdClass;
@@ -94,7 +95,7 @@ class RegistrationTest extends TestCase
     {
         BladeX::component('components.directoryWithComponents.*');
 
-        $registeredComponents = collect(BladeX::registeredComponents())
+        $registeredComponents = Collection::make(BladeX::registeredComponents())
             ->mapWithKeys(function (Component $bladeXComponent) {
                 return [$bladeXComponent->getTag() => $bladeXComponent->view];
             })
@@ -116,7 +117,7 @@ class RegistrationTest extends TestCase
             'components.directoryWithComponents2.*',
         ]);
 
-        $registeredComponents = collect(BladeX::registeredComponents())
+        $registeredComponents = Collection::make(BladeX::registeredComponents())
             ->mapWithKeys(function (Component $bladeXComponent) {
                 return [$bladeXComponent->getTag() => $bladeXComponent->view];
             })
@@ -180,7 +181,7 @@ class RegistrationTest extends TestCase
 
         BladeX::component('namespaced-test::*');
 
-        $registeredComponents = collect(BladeX::registeredComponents())
+        $registeredComponents = Collection::make(BladeX::registeredComponents())
             ->mapWithKeys(function (Component $bladeXComponent) {
                 return [$bladeXComponent->getTag() => $bladeXComponent->view];
             })
@@ -201,7 +202,7 @@ class RegistrationTest extends TestCase
 
         BladeX::component('subdirectory-namespaced-test::components.*');
 
-        $registeredComponents = collect(BladeX::registeredComponents())
+        $registeredComponents = Collection::make(BladeX::registeredComponents())
             ->mapWithKeys(function (Component $bladeXComponent) {
                 return [$bladeXComponent->getTag() => $bladeXComponent->view];
             })
@@ -232,7 +233,7 @@ class RegistrationTest extends TestCase
 
         BladeX::component('namespaced-test::namespacedView1')->withoutNamespace();
 
-        $registeredComponents = collect(BladeX::registeredComponents())
+        $registeredComponents = Collection::make(BladeX::registeredComponents())
             ->mapWithKeys(function (Component $bladeXComponent) {
                 return [$bladeXComponent->getTag() => $bladeXComponent->view];
             })
@@ -253,7 +254,7 @@ class RegistrationTest extends TestCase
 
         BladeX::component('namespaced-test::namespacedView1')->withoutNamespace();
 
-        $registeredComponents = collect(BladeX::registeredComponents())
+        $registeredComponents = Collection::make(BladeX::registeredComponents())
             ->mapWithKeys(function (Component $bladeXComponent) {
                 return [$bladeXComponent->getTag() => $bladeXComponent->view];
             })
@@ -272,7 +273,7 @@ class RegistrationTest extends TestCase
 
         BladeX::component('namespaced-test::namespacedView1')->withoutNamespace()->prefix('ns');
 
-        $registeredComponents = collect(BladeX::registeredComponents())
+        $registeredComponents = Collection::make(BladeX::registeredComponents())
             ->mapWithKeys(function (Component $bladeXComponent) {
                 return [$bladeXComponent->getTag() => $bladeXComponent->view];
             })
@@ -293,7 +294,7 @@ class RegistrationTest extends TestCase
 
         BladeX::component('namespaced-test::namespacedView1')->withoutNamespace()->prefix('ns');
 
-        $registeredComponents = collect(BladeX::registeredComponents())
+        $registeredComponents = Collection::make(BladeX::registeredComponents())
             ->mapWithKeys(function (Component $bladeXComponent) {
                 return [$bladeXComponent->getTag() => $bladeXComponent->view];
             })
@@ -314,7 +315,7 @@ class RegistrationTest extends TestCase
 
         BladeX::components('namespaced-test::components.*');
 
-        $registeredComponents = collect(BladeX::registeredComponents())
+        $registeredComponents = Collection::make(BladeX::registeredComponents())
             ->mapWithKeys(function (Component $bladeXComponent) {
                 return [$bladeXComponent->getTag() => $bladeXComponent->view];
             })
@@ -340,7 +341,7 @@ class RegistrationTest extends TestCase
 
         BladeX::components('namespaced-test::components.*');
 
-        $registeredComponents = collect(BladeX::registeredComponents())
+        $registeredComponents = Collection::make(BladeX::registeredComponents())
             ->mapWithKeys(function (Component $bladeXComponent) {
                 return [$bladeXComponent->getTag() => $bladeXComponent->view];
             })
@@ -364,7 +365,7 @@ class RegistrationTest extends TestCase
 
         BladeX::components('namespaced-test::components.*');
 
-        $registeredComponents = collect(BladeX::registeredComponents())
+        $registeredComponents = Collection::make(BladeX::registeredComponents())
             ->mapWithKeys(function (Component $bladeXComponent) {
                 return [$bladeXComponent->getTag() => $bladeXComponent->view];
             })
@@ -390,7 +391,7 @@ class RegistrationTest extends TestCase
 
         BladeX::components('namespaced-test::components.*')->withoutNamespace()->prefix('nsc');
 
-        $registeredComponents = collect(BladeX::registeredComponents())
+        $registeredComponents = Collection::make(BladeX::registeredComponents())
             ->mapWithKeys(function (Component $bladeXComponent) {
                 return [$bladeXComponent->getTag() => $bladeXComponent->view];
             })
@@ -413,7 +414,7 @@ class RegistrationTest extends TestCase
             'components.directoryWithComponents2.*',
         ])->prefix('c');
 
-        $registeredComponents = collect(BladeX::registeredComponents())
+        $registeredComponents = Collection::make(BladeX::registeredComponents())
             ->mapWithKeys(function (Component $bladeXComponent) {
                 return [$bladeXComponent->getTag() => $bladeXComponent->view];
             })
@@ -445,7 +446,7 @@ class RegistrationTest extends TestCase
             'components.directoryWithComponents2.myView6',
         ]);
 
-        $registeredComponents = collect(BladeX::registeredComponents())
+        $registeredComponents = Collection::make(BladeX::registeredComponents())
             ->mapWithKeys(function (Component $bladeXComponent) {
                 return [$bladeXComponent->getTag() => $bladeXComponent->view];
             })
@@ -469,7 +470,7 @@ class RegistrationTest extends TestCase
 
         BladeX::component('namespaced-test::**.*');
 
-        $registeredComponents = collect(BladeX::registeredComponents())
+        $registeredComponents = Collection::make(BladeX::registeredComponents())
             ->mapWithKeys(function (Component $bladeXComponent) {
                 return [$bladeXComponent->getTag() => $bladeXComponent->view];
             })

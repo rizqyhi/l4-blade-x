@@ -1,29 +1,29 @@
 
 
-@php
+<?php
     $user = 'John';
-@endphp
+?>
 
 <card :title="$user">
     My content
 </card>
 
 
-@php
+<?php
     $user = new class {
         public $name = 'Jane';
     };
-@endphp
+?>
 
 <card :title="$user->name">
     My content
 </card>
 
-@php
+<?php
     $user = new class {
         public $name = 'Jane';
     };
-@endphp
+?>
 
 <card :title="['>']">
     My content

@@ -13,7 +13,7 @@
                 array_merge(
                     app(Spatie\BladeX\ContextStack::class)->read(),
                     ['name' => 'countries','options' => $countries,'selected' => 'fr'],
-                    app(
+                    app()->make(
                         'Spatie\BladeX\Tests\Features\ViewModel\TestClasses\SelectFieldViewModel',
                         array_merge(
                             app(Spatie\BladeX\ContextStack::class)->read(),

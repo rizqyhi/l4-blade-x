@@ -8,7 +8,7 @@
                 array_merge(
                     app(Spatie\BladeX\ContextStack::class)->read(),
                     [],
-                    app(
+                    app()->make(
                         'Spatie\BladeX\Tests\Features\Context\TestClasses\UserNameViewModel',
                         array_merge(
                             app(Spatie\BladeX\ContextStack::class)->read(),

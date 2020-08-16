@@ -81,7 +81,7 @@ class ContextTest extends TestCase
 
         $this->expectExceptionMessage('Undefined variable: user');
 
-        view('views.componentWithDefaultSlotThatUsesContext', [
+        $this->app['view']->make('views.componentWithDefaultSlotThatUsesContext', [
             'user' => (object) [
                 'name' => 'Sebastian',
             ],
@@ -97,7 +97,7 @@ class ContextTest extends TestCase
 
         $this->expectExceptionMessage('Undefined variable: user');
 
-        view('views.componentWithNamedSlotThatUsesContext', [
+        $this->app['view']->make('views.componentWithNamedSlotThatUsesContext', [
             'user' => (object) [
                 'name' => 'Sebastian',
             ],

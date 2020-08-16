@@ -2,8 +2,8 @@
 
 namespace Spatie\BladeX;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Str;
+use Illuminate\Support\Contracts\ArrayableInterface as Arrayable;
+use Spatie\BladeX\Laravel\Str;
 use Spatie\BladeX\Exceptions\CouldNotRegisterComponent;
 
 class Component

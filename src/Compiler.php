@@ -2,7 +2,8 @@
 
 namespace Spatie\BladeX;
 
-use Illuminate\Support\Str;
+use Spatie\BladeX\Laravel\Collection;
+use Spatie\BladeX\Laravel\Str;
 
 class Compiler
 {
@@ -121,7 +122,7 @@ class Compiler
         $attributesString = $this->attributesToString($attributes);
 
         if ($component->view === 'bladex::context') {
-            return " @php(app(Spatie\BladeX\ContextStack::class)->push({$attributesString})) ";
+            return " <?php (app(Spatie\BladeX\ContextStack::class)->push({$attributesString})); ?> ";
         }
 
         if ($component->viewModel) {
@@ -129,7 +130,7 @@ class Compiler
                 array_merge(
                     app(Spatie\BladeX\ContextStack::class)->read(),
                     {$attributesString},
-                    app(
+                    app()->make(
                         '{$component->viewModel}',
                         array_merge(
                             app(Spatie\BladeX\ContextStack::class)->read(),
@@ -149,7 +150,7 @@ class Compiler
     protected function componentEndString(Component $component): string
     {
         if ($component->view === 'bladex::context') {
-            return "@php(app(Spatie\BladeX\ContextStack::class)->pop())";
+            return "<?php (app(Spatie\BladeX\ContextStack::class)->pop()); ?>";
         }
 
         return ' @endcomponent ';
@@ -180,7 +181,7 @@ class Compiler
         }
 
         $namespaces = [];
-        $attributes = collect($matches)->mapWithKeys(function ($match) use (&$namespaces) {
+        $attributes = Collection::make($matches)->mapWithKeys(function ($match) use (&$namespaces) {
             $attribute = Str::camel($match['attribute']);
             $value = $match['value'] ?? null;
 
@@ -201,7 +202,7 @@ class Compiler
                     $namespace = Str::before($attribute, ':');
                     $attribute = Str::after($attribute, ':');
 
-                    data_set($namespaces, "{$namespace}.{$attribute}", $value);
+                    Laravel\data_set($namespaces, "{$namespace}.{$attribute}", $value);
 
                     return [];
                 }
@@ -250,7 +251,7 @@ class Compiler
 
     protected function attributesToString(array $attributes): string
     {
-        $attributes = collect($attributes);
+        $attributes = Collection::make($attributes);
 
         $string = [];
 

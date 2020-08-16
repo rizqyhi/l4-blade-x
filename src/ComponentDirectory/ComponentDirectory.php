@@ -3,7 +3,8 @@
 namespace Spatie\BladeX\ComponentDirectory;
 
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
+use Spatie\BladeX\Laravel\Str;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\SplFileInfo;
 
 abstract class ComponentDirectory
@@ -24,15 +25,32 @@ abstract class ComponentDirectory
 
         return implode('.', array_filter([
             $this->viewDirectory,
-            $subDirectory,
+            $subDirectory !== './' ? rtrim($subDirectory, '/') : '',
             $view,
         ]));
     }
 
+    /**
+     * @todo need to find better implementation for this method
+     * also related to line 28
+     * File::files/File::allFiles supposed to return array of Symfony's SplFileInfo
+     */
     public function getFiles(): array
     {
-        return $this->includeSubdirectories
+        $filesystem = new Filesystem();
+
+        return array_map(function ($filePath) use ($filesystem) {
+            $filename = basename($filePath);
+            $relativePath = $filesystem->makePathRelative(dirname($filePath), $this->getAbsoluteDirectory());
+
+            return new SplFileInfo(
+                $filename,
+                $relativePath,
+                $relativePath.$filename
+            );
+        }, $this->includeSubdirectories
             ? File::allFiles($this->getAbsoluteDirectory())
-            : File::files($this->getAbsoluteDirectory());
+            : File::files($this->getAbsoluteDirectory())
+        );
     }
 }

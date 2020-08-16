@@ -9,7 +9,7 @@ class UserNameViewModel extends ViewModel
     /** @var object */
     public $user;
 
-    public function __construct(object $user)
+    public function __construct(\stdClass $user)
     {
         $this->user = (object) ['name' => strtoupper($user->name)];
     }

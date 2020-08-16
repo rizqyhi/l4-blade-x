@@ -2,38 +2,44 @@
 
 namespace Spatie\BladeX\Tests;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
-use Orchestra\Testbench\TestCase as Orchestra;
+// use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\BladeX\BladeXServiceProvider;
 use Spatie\BladeX\Facades\BladeX;
-use Spatie\Snapshots\MatchesSnapshots;
+use Spatie\BladeX\Tests\SnapshotAssertions\MatchesSnapshots;
 
-abstract class TestCase extends Orchestra
+abstract class TestCase extends \anlutro\LaravelTesting\PkgAppTestCase
 {
     use MatchesSnapshots;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
         parent::setUp();
 
-        Artisan::call('view:clear');
+        $this->app['path.storage'] = dirname(__DIR__) . '/build';
+
+        $this->app->register(BladeXServiceProvider::class);
     }
 
-    protected function getPackageProviders($app)
+    public function tearDown(): void
     {
-        return [
-            BladeXServiceProvider::class,
-        ];
+        array_map('unlink', glob(dirname(__DIR__) . '/build/views/*'));
     }
 
-    protected function getPackageAliases($app)
+    public function getVendorPath()
     {
-        return [
-            'BladeX' => BladeX::class,
-        ];
+        return dirname(__DIR__) . '/vendor';
     }
+
+    // protected function getExtraProviders()
+    // {
+    //     return [
+    //         BladeXServiceProvider::class
+    //     ];
+    // }
 
     protected function getStub(string $fileName): string
     {
@@ -45,7 +51,7 @@ abstract class TestCase extends Orchestra
         $fullViewName = "views.{$viewName}";
 
         $this->assertMatchesXmlSnapshot(
-            '<div>'.view($fullViewName, $data)->render().'</div>'
+            '<div>'.View::make($fullViewName, $data)->render().'</div>'
         );
 
         $this->assertMatchesXmlSnapshot(

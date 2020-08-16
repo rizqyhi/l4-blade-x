@@ -2,7 +2,7 @@
 
 namespace Spatie\BladeX;
 
-use Illuminate\Support\Arr;
+use Spatie\BladeX\Laravel\Arr;
 
 class ContextStack
 {

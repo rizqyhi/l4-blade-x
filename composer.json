@@ -44,14 +44,17 @@
     ],
     "require": {
         "php": "^7.2",
-        "illuminate/view": "~5.8.0|^6.0"
+        "laravel/framework": "4.2.*"
     },
     "require-dev": {
-        "orchestra/testbench": "~3.8.0|^4.0",
-        "phpunit/phpunit": "^8.0",
-        "spatie/phpunit-snapshot-assertions": "^2.1"
+        "anlutro/l4-testing": "^0.2.9",
+        "laravel/laravel": "4.2.*",
+        "phpunit/phpunit": "~5.0"
     },
     "autoload": {
+        "files": [
+            "src/Laravel/helpers.php"
+        ],
         "psr-4": {
             "Spatie\\BladeX\\": "src"
         }
@@ -64,19 +67,8 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
     },
     "config": {
         "sort-packages": true
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Spatie\\BladeX\\BladeXServiceProvider"
-            ],
-            "aliases": {
-                "BladeX": "Spatie\\BladeX\\Facades\\BladeX"
-            }
-        }
     }
 }

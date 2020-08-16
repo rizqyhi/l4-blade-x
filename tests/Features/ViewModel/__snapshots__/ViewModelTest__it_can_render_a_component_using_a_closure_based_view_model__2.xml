@@ -8,11 +8,11 @@
 ?>
   <?php $__env->startComponent(
            'components/select-field',
-           array_merge(app(Spatie\BladeX\ContextStack::class)->read(), 
+           array_merge(app(Spatie\BladeX\ContextStack::class)->read(),
                 array_merge(
                     app(Spatie\BladeX\ContextStack::class)->read(),
                     ['name' => 'countries','options' => $countries,'selected' => 'fr'],
-                    app(
+                    app()->make(
                         'bladex.viewModel.0',
                         array_merge(
                             app(Spatie\BladeX\ContextStack::class)->read(),

@@ -13,7 +13,7 @@ class DummyViewModel extends ViewModel
         // This one is here for testing purposes
     }
 
-    public function post(): object
+    public function post(): \stdClass
     {
         return (object) [
             'title' => 'title',
