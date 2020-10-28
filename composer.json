@@ -44,7 +44,7 @@
     ],
     "require": {
         "php": "^7.2",
-        "laravel/framework": "4.2.*"
+        "laravel/framework": "^4.2"
     },
     "require-dev": {
         "anlutro/l4-testing": "^0.2.9",
@@ -70,5 +70,11 @@
     },
     "config": {
         "sort-packages": true
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:keripix/laravel42x.git"
+        }
+    ]
 }
