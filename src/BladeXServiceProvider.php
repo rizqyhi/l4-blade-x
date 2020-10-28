@@ -2,26 +2,24 @@
 
 namespace Spatie\BladeX;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Engines\CompilerEngine;
+use Illuminate\View\ViewServiceProvider;
 
-class BladeXServiceProvider extends ServiceProvider
+class BladeXServiceProvider extends ViewServiceProvider
 {
     public function register()
     {
+        parent::register();
+
         $this->app->singleton(BladeX::class);
         $this->app->singleton(ContextStack::class);
 
         $this->app->alias(BladeX::class, 'blade-x');
-    }
 
-    public function boot()
-    {
-        $this->registerViewFactory();
-        $this->registerBladeCompiler();
         $this->registerBladeXCompiler();
     }
 
-    private function registerViewFactory()
+    public function registerFactory()
     {
         $this->app->bindShared('view', function($app) {
 			$factory = new CustomFactory(
@@ -37,22 +35,28 @@ class BladeXServiceProvider extends ServiceProvider
         });
     }
 
-    private function registerBladeCompiler()
+    public function registerBladeEngine($resolver)
     {
-        $this->app->bindShared('blade.compiler', function($app) {
+		$this->app->bindShared('blade.compiler', function($app)
+		{
 			$cache = $app['path.storage'].'/views';
 
 			return new CustomBladeCompiler($app['files'], $cache);
-        });
+		});
+
+		$resolver->register('blade', function()
+		{
+			return new CompilerEngine($this->app['blade.compiler'], $this->app['files']);
+		});
     }
 
     private function registerBladeXCompiler()
     {
-        $this->app['blade.compiler']->extend(function ($view, $compiler) {
-            return $this->app[Compiler::class]->compile($view);
-        });
-
         $this->app['view']->addNamespace('bladex', __DIR__.'/../resources/views');
+
+        $this->app['blade.compiler']->extend(function ($view) {
+            return $this->app->make(Compiler::class)->compile($view);
+        });
 
         $this->app->make(BladeX::class)->component('bladex::context', 'context');
     }
