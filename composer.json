@@ -44,7 +44,8 @@
     ],
     "require": {
         "php": "^7.2",
-        "laravel/framework": "^4.2"
+        "laravel/framework": "^4.2",
+        "symfony/filesystem": "^4.0.0"
     },
     "require-dev": {
         "anlutro/l4-testing": "^0.2.9",
