@@ -49,7 +49,7 @@
     },
     "require-dev": {
         "anlutro/l4-testing": "^0.2.9",
-        "laravel/laravel": "4.2.*",
+        "laravel/laravel": "dev-master",
         "phpunit/phpunit": "~5.0"
     },
     "autoload": {
@@ -75,7 +75,11 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@github.com:keripix/laravel42x.git"
-        }
+            "url": "git@github.com:dicoding-dev/L42x.git"
+        },
+	{
+	    "type": "vcs",
+	    "url": "git@github.com:rizqyhi/l4.git"
+	}
     ]
 }
