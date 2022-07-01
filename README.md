@@ -1,4 +1,4 @@
-# Notice
+# Notice 
 
 We have abandoned this package because Laravel 7 introduced native support for Blade-X style components. 
 
