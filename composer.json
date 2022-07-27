@@ -50,7 +50,7 @@
     "require-dev": {
         "anlutro/l4-testing": "^0.2.9",
         "laravel/laravel": "dev-master",
-        "phpunit/phpunit": "~5.0"
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "files": [
@@ -70,7 +70,10 @@
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true
+        }
     },
     "repositories": [
         {
