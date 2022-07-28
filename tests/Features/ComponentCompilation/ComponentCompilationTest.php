@@ -8,7 +8,7 @@ use Spatie\BladeX\Tests\TestCase;
 
 class ComponentCompilationTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

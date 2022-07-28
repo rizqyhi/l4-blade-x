@@ -10,7 +10,7 @@ use Spatie\BladeX\Tests\TestCase;
 
 class ContextTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -79,7 +79,7 @@ class ContextTest extends TestCase
         BladeX::component('components.modelForm')
             ->viewModel(UserProviderViewModel::class);
 
-        $this->expectExceptionMessage('Undefined variable: user');
+        $this->expectExceptionMessage('Undefined variable $user');
 
         $this->app['view']->make('views.componentWithDefaultSlotThatUsesContext', [
             'user' => (object) [
@@ -95,7 +95,7 @@ class ContextTest extends TestCase
         BladeX::component('components.modelForm')
             ->viewModel(UserProviderViewModel::class);
 
-        $this->expectExceptionMessage('Undefined variable: user');
+        $this->expectExceptionMessage('Undefined variable $user');
 
         $this->app['view']->make('views.componentWithNamedSlotThatUsesContext', [
             'user' => (object) [
