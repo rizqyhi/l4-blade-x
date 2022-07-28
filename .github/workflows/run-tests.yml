@@ -32,7 +32,9 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-plugins
+        run: |
+          composer config --global github-oauth.github.com ${{ secrets.GH_TOKEN }}
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-plugins
 
       - name: Execute tests
         run: vendor/bin/phpunit
