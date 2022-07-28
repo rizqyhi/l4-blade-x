@@ -44,11 +44,11 @@
     ],
     "require": {
         "php": "^7.2|^8.1",
-        "laravel/framework": "^4.2",
+        "laravel/framework": "dev-php-8 as 4.2.x-dev",
         "symfony/filesystem": "^4.0.0"
     },
     "require-dev": {
-        "anlutro/l4-testing": "^0.2.9",
+        "anlutro/l4-testing": "dev-master",
         "laravel/laravel": "dev-master",
         "phpunit/phpunit": "^9.5"
     },
@@ -80,9 +80,13 @@
             "type": "vcs",
             "url": "git@github.com:dicoding-dev/L42x.git"
         },
-	{
-	    "type": "vcs",
-	    "url": "git@github.com:rizqyhi/l4.git"
-	}
+        {
+            "type": "vcs",
+            "url": "git@github.com:dicoding-dev/L42x-app.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:dicoding-dev/laravel-testing.git"
+        }
     ]
 }
