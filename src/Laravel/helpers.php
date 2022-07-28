@@ -2,6 +2,8 @@
 
 namespace Spatie\BladeX\Laravel;
 
+use Illuminate\Support\Arr;
+
     /**
      * Get an item from an array or object using "dot" notation.
      *
