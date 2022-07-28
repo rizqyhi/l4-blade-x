@@ -78,15 +78,15 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@github.com:dicoding-dev/L42x.git"
+            "url": "https://github.com/dicoding-dev/L42x"
         },
         {
             "type": "vcs",
-            "url": "git@github.com:dicoding-dev/L42x-app.git"
+            "url": "https://github.com/dicoding-dev/L42x-app"
         },
         {
             "type": "vcs",
-            "url": "git@github.com:dicoding-dev/laravel-testing.git"
+            "url": "https://github.com/dicoding-dev/laravel-testing"
         }
     ]
 }
