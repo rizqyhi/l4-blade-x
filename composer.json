@@ -44,7 +44,7 @@
     ],
     "require": {
         "php": "^7.2|^8.1",
-        "laravel/framework": "dev-php-8 as 4.2.x-dev",
+        "laravel/framework": ">=4.1,<4.3",
         "symfony/filesystem": "^4.0.0"
     },
     "require-dev": {
