@@ -19,9 +19,9 @@ abstract class TestCase extends \anlutro\LaravelTesting\PkgAppTestCase
     {
         parent::setUp();
 
-	if (!is_dir(dirname(__DIR__) . '/build')) {
-	    mkdir(dirname(__DIR__) . '/build/views', 0775, true);
-	}
+        if (!is_dir(dirname(__DIR__) . '/build/views')) {
+            mkdir(dirname(__DIR__) . '/build/views', 0775, true);
+        }
 
         $this->app['path.storage'] = dirname(__DIR__) . '/build';
 
