@@ -30,11 +30,11 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
           coverage: none
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
-        run: |
-          composer config --global github-oauth.github.com ${{ secrets.GH_TOKEN }}
-          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-plugins
+        run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-plugins
 
       - name: Execute tests
         run: vendor/bin/phpunit
